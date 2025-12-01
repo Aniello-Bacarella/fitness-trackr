@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { getActivities, deleteActivity } from "../api/activities";
+import {useAuth} from "../auth/Authcontext"
 
 import ActivityList from "./ActivityList";
 import ActivityForm from "./ActivityForm";
