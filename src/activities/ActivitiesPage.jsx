@@ -8,11 +8,16 @@ import ActivityForm from "./ActivityForm";
 export default function ActivitiesPage() {
   const [activities, setActivities] = useState([]);
   const {token} = useAuth();
+  const [error, setError] = useState('')
 
   const syncActivities = async () => {
+    try {
     const data = await getActivities();
     setActivities(data);
-  };
+  } catch (err) {
+    console.error ('Error fetching activities.', err);
+  }
+};
 
   useEffect(() => {
     syncActivities();
