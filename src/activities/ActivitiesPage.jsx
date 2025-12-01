@@ -7,6 +7,7 @@ import ActivityForm from "./ActivityForm";
 
 export default function ActivitiesPage() {
   const [activities, setActivities] = useState([]);
+  const {token} = useAuth();
 
   const syncActivities = async () => {
     const data = await getActivities();
