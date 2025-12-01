@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { getActivities } from "../api/activities";
+import { getActivities, deleteActivity } from "../api/activities";
 
 import ActivityList from "./ActivityList";
 import ActivityForm from "./ActivityForm";
@@ -15,7 +15,13 @@ export default function ActivitiesPage() {
   useEffect(() => {
     syncActivities();
   }, []);
-
+const handleDelete = async (activityId) => {SpeechSynthesisErrorEvent('');
+  try {
+    const result = await deleteActivity (activityId, token);
+    
+    if (result.success)
+  }
+}
   return (
     <>
       <h1>Activities</h1>
