@@ -18,7 +18,7 @@ export async function getActivities() {
  */
 export async function createActivity(token, activity) {
   if (!token) {
-    throw Error("You must be signed in to create an activity.");
+    throw new Error("You must be signed in to create an activity.");
   }
 
   const response = await fetch(API + "/activities", {
@@ -32,13 +32,13 @@ export async function createActivity(token, activity) {
 
   if (!response.ok) {
     const result = await response.json();
-    throw Error(result.message);
+    throw new Error(result.message);
   }
 }
 
 export async function deleteActivity(activityId, token) {
   if (!token) {
-    throw Error("You must be signed in to delete an activity.");
+    throw new Error("You must be signed in to delete an activity.");
   }
 
   const response = await fetch(`${API}/activities/${activityId}`, {
@@ -48,10 +48,22 @@ export async function deleteActivity(activityId, token) {
       Authorization: "Bearer " + token,
     },
   });
-  const result = await response.json();
+
+  if (response.status === 204) {
+    return { success: true };
+  }
+
+  let result = {};
+  try {
+    result = await response.json();
+  } catch {
+    return { success: true };
+  }
 
   if (!response.ok) {
-    throw Error(result.error || result.message || "Unable to delete activity");
+    throw new Error(
+      result.error || result.message || "Unable to delete activity"
+    );
   }
-  return result;
+  return { success: true, ...result };
 }

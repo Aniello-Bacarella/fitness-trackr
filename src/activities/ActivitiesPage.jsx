@@ -23,7 +23,7 @@ export default function ActivitiesPage() {
     syncActivities();
   }, []);
   const handleDelete = async (activityId) => {
-    SpeechSynthesisErrorEvent("");
+    setError("");
     try {
       const result = await deleteActivity(activityId, token);
 
@@ -31,7 +31,7 @@ export default function ActivitiesPage() {
         setActivities((prev) => prev.filter((act) => act.id !== activityId));
       }
     } catch (err) {
-      setError("Something went wrong. Please try again.");
+      setError(err.message);
     }
   };
 

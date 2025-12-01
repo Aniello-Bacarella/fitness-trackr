@@ -1,4 +1,4 @@
-export default function ActivityList({ activities }) {
+export default function ActivityList({ activities, token, onDelete }) {
   return (
     <ul>
       {activities.map((activity) => (
